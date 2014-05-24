@@ -29,7 +29,7 @@ public class CorrelatingRestClient implements RestClient {
 
         LOGGER.info("start REST request to {} with correlationId {}", uri, correlationId);
 
-        //TODO: error-handling and fault-tolerance in production
+        //TODO: error-handling and fault-tolerance required in production code
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET,
                 new HttpEntity<String>(httpHeaders), String.class);
 
