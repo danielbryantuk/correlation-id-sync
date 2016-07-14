@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                <!--
+                   %d{ISO8601}  displays the date and time in the ISO format (see earlier post about this norm).
+                   %-5p  the log level (such as DEBUG, INFO, WARN, \u2026), formatted to occupy five columns (I like when things keep in line).
+                   %t the name of the thread logging this line.
+                   %c{1}  the name of the class calling the logger (the {1} argument is there to restrict the number of packages displayed; {2} would display one package level before the class name, {3} would display two package levels, \u2026 and %c without the brackets would display the full package and class names).
+                   %M the method.
+                   %L the line number.
+                   %m the message to log.
+                   %n begin a new line.
+                -->
+                %d{yyyy-MM-dd HH:mm:ss}|%X{X-Correlation-ID}|%-5p|%c{1}:%L|%m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- FINE TUNE SPRING LOGGERS -->
+
+    <logger name="ch.qos.logback.classic" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.springframework.web" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.springframework.ws" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.springframework.security" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+</configuration>
