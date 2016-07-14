@@ -1,13 +1,21 @@
 package uk.co.taidev.experiments.correlationidsync.web.filters;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import uk.co.taidev.experiments.correlationidsync.reporting.RequestCorrelation;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.UUID;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.co.taidev.experiments.correlationidsync.reporting.RequestCorrelation;
 
 /**
  * CorrelationHeaderFilter
@@ -37,7 +45,10 @@ public class CorrelationHeaderFilter implements Filter {
 
         RequestCorrelation.setId(currentCorrId);
 
-        filterChain.doFilter(httpServletRequest, servletResponse);
+        final HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+        httpServletResponse.setHeader(RequestCorrelation.CORRELATION_ID_HEADER, RequestCorrelation.getId());
+
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
 

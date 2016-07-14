@@ -5,7 +5,7 @@ package uk.co.taidev.experiments.correlationidsync.reporting;
  */
 public class RequestCorrelation {
 
-    public static final String CORRELATION_ID_HEADER = "correlationId";
+    public static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
 
 
     private static final ThreadLocal<String> id = new ThreadLocal<String>();
